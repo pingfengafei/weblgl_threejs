@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "utf-8" />
+    <title>lambertsphere</title>
+</head>
+
+    <script type="text/javascript" src="three.min.js "></script>
+
+    <body>
+    <script type = "text/javascript">
+    var WIDTH = 500,
+        HEIGH = 500,
+        VIEW_ANGLE = 45,
+        ASPECT = WIDTH / HEIGH,
+        NEAR = 0.01,
+        FAR = 10000;
+    
+    var camera = new THREE.PerspectiveCamera( 45, WIDTH / HEIGH, 0.1, 10000 );
+    camera.position.z = 100;
+    var scene = new THREE.Scene();
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize( 400, 400 );
+    //获取浏览器dom元素
+    document.body.appendChild( renderer.domElement ); 
+   
+   //spherematerial定义要在sphere之前，否则虽然编译通过，实际图形没有lambert材质（反光）
+    var sphereMaterial = new THREE.MeshLambertMaterial( { color : 0xCC0000 } );
+    var sphere = new THREE.Mesh( new THREE.SphereGeometry( 20, 16, 16 ), sphereMaterial );
+    
+   // 为lambertmaterial添加环境光
+    var light = new THREE.PointLight( 0x99FFFF );
+    light.position.x = 400;
+    light.position.y = 200;
+    light.position.z = 300;
+
+    scene.add( light );
+    scene.add( sphere );
+    
+    renderer.render( scene ,camera );
+    </script>
+</body>
+</html>
